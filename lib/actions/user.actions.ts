@@ -4,27 +4,21 @@ import { FilterQuery, SortOrder } from "mongoose";
 import { revalidatePath } from "next/cache";
 
 import Community from "../models/community.model";
-import Thread from "../models/thread.models";
+import Thread from "../models/thread.model";
 import User from "../models/user.model";
 
 import { connectToDB } from "../mongoose";
 
 export async function fetchUser(userId: string) {
   try {
-    connectToDB(); // Establish database connection
+    connectToDB();
 
-    const user = await User.findOne({ id: userId }).populate({
-      path: 'communities',
+    return await User.findOne({ id: userId }).populate({
+      path: "communities",
       model: Community,
-    }); // Execute query to find user and populate communities
-
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    return user; // Return the user object
+    });
   } catch (error: any) {
-    throw new Error(`Failed to fetch user: ${error.message}`); // Throw error if fetching user fails
+    throw new Error(`Failed to fetch user: ${error.message}`);
   }
 }
 

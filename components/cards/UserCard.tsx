@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "../ui/button";
 
+
 interface Props {
   id: string;
   name: string;
@@ -43,6 +44,8 @@ function UserCard({ id, name, username, imgUrl, personType }: Props) {
             router.push(`/communities/${id}`);
           } else {
             router.push(`/profile/${id}`);
+            
+
           }
         }}
       >
